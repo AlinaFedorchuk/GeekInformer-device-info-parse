@@ -1,0 +1,11 @@
+{
+  "name": "geekinformer-parse",
+  "version": "1.0.0",
+  "description": "device-info-parse",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "author": "",
+  "license": "ISC"
+}

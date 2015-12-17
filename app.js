@@ -1,6 +1,3 @@
-/**
- * Created by Alina on 14.12.2015.
- */
 var express = require('express');
 var request = require('request');
 var cheerio = require("cheerio");
