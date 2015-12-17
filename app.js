@@ -1,6 +1,10 @@
+var PORT = 3000; //Заглавными буквами обычно обьявляют константы
+
 var express = require('express');
 var request = require('request');
 var cheerio = require("cheerio");
+//тут подключаеш модуль dictionary (как из переменной сделать модуль написано в dictionary.js)
+
 var app = express();
 
 app.get('/', function (req, res) {
@@ -9,32 +13,33 @@ app.get('/', function (req, res) {
 	
 		var $ = cheerio.load(body);
 		var description = $("div .main-review").html();
-		
-		/*function Translate(){
-			var text = $("div .main-review").text();
+		  //также на этом этапе удалить блок с отзывами USER OPINIONS AND REVIEWS и лишние кнопки и элементы
+		function Translate(html){
+			/*тут уже надо пройтись циклом по словарю, как это сделать?
+			1) создаеш из обьекта массив с ключами (они же и  паттерны). Делается с помощью Object.getOwnPropertyNames(dictionary)
+			2) по это массиву проходишся циклом (массив.forEach(function (pattern) {
+				а тут уже код хоторый ниже
+			}))
+			 */
+
 			var pattern = /network/ig;
-			var NewText = text.replace (pattern, function replacer(match){
-				return match.toUpperCase();
+			return html.replace (pattern, function (match){
+				console.log(match)
+				return 'сеть';
 			});
-			return NewText;
-		}*/
-		
-			res.send(description); 
-			 
-		
+		}
+
+		  description = Translate(description);
+
+		res.type('text/html').send(description);
 	  }
 	  else {
-		res.send("We’ve encountered an error: " + error);
+		res.status(404).send("We’ve encountered an error: " + error); //  status 404 чтобы браузер понял что ошибка
 	}
 
 }) 
 });
 
-var server = app.listen(3000, function () {
-
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('Example app listening at http://127.0.0.1', host, port);
-
+app.listen(PORT, function () {
+  console.log('Launched at port ' + PORT);
 });
