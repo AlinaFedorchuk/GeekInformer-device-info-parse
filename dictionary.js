@@ -48,9 +48,6 @@ var dictionary = {
 	"december": "декабрь",
 	"coming soon": "скоро",
 	"exp. release": "выпуск",
-	"yes": "да",
-	"no": "нет",
-	"up": "до",
 	"autofocus": "автофокус"
 };
  module.exports = dictionary;

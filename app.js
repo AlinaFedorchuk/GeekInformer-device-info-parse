@@ -19,6 +19,8 @@ app.get('/', function (req, res) {
 			$('.article-info-meta').remove();
 			$('#user-comments').remove();
 			$('p.note').remove();
+			$('style').remove();
+			$('script').remove();
 
 			//Add style to the table(specification)
 			$('th').css('width', '80px');
@@ -29,16 +31,20 @@ app.get('/', function (req, res) {
 			var description = $('div .main-review').html();
 
 			// Translate all content
+			function capitalizeFirstLetter(string) {
+				return string.charAt(0).toUpperCase() + string.slice(1);
+			}
 			function Translate(html){
-				Object.getOwnPropertyNames(dictionary).forEach(function (pattern) {
-					return html.replace(pattern, function (match){
-						return dictionary[pattern];
+				Object.getOwnPropertyNames(dictionary).forEach(function (word) {
+					var pattern = new RegExp(word, 'gi')
+					html = html.replace(pattern, function (match) {
+						return capitalizeFirstLetter(dictionary[word]);
 					});
 				});
-
+				return html;
 			}
 
-			//description = Translate(description);
+			description = Translate(description);
 
 			res.type('text/html').send(description);
 
